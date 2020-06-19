@@ -1,15 +1,18 @@
 package me.whiteship.java8to11;
 
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class App {
 
     public static void main(String[] args) {
-        Foo foo = new DefaultFoo("keesun");
-        foo.printName();
-        foo.printNameUpperCase();
+        List<String> name = new ArrayList<>();
+        name.add("keesun");
+        name.add("whiteship");
+        name.add("toby");
+        name.add("foo");
 
-        Foo.printAnything();
+        name.forEach(System.out::println);
     }
 
 }
