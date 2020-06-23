@@ -1,19 +1,33 @@
 package me.whiteship.java8to11;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.*;
 
 public class App {
 
-    public static void main(String[] args) {
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(getRunnable("Hello"), 1, 2, TimeUnit.SECONDS);
-    }
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-    private static Runnable getRunnable(String message) {
-        return () -> System.out.println(message + Thread.currentThread().getName());
+        Callable<String> hello = () -> {
+            Thread.sleep(2000L);
+            return "Hello";
+        };
+
+        Callable<String> java = () -> {
+            Thread.sleep(3000L);
+            return "Java";
+        };
+
+        Callable<String> keesun = () -> {
+            Thread.sleep(1000L);
+            return "Keesun";
+        };
+
+        String s = executorService.invokeAny(Arrays.asList(hello, java, keesun));
+        System.out.println(s);
+
+        executorService.shutdown();
     }
 
 }
