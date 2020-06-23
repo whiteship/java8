@@ -1,24 +1,19 @@
 package me.whiteship.java8to11;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class App {
 
     public static void main(String[] args) {
-        Thread thread = new Thread(() -> {
-            System.out.println("Thread: " + Thread.currentThread().getName());
-            try {
-                Thread.sleep(3000L);
-            } catch (InterruptedException e) {
-                throw new IllegalStateException(e);
-            }
-        });
-        thread.start();
-
-        System.out.println("Hello: " + Thread.currentThread().getName());
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(thread + " is finished");
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleAtFixedRate(getRunnable("Hello"), 1, 2, TimeUnit.SECONDS);
     }
+
+    private static Runnable getRunnable(String message) {
+        return () -> System.out.println(message + Thread.currentThread().getName());
+    }
+
 }
