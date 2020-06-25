@@ -1,29 +1,16 @@
 package me.whiteship.java8to11;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.Arrays;
 
+@Chicken("양념")
+@Chicken("마늘간장")
 public class App {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        boolean throwError = true;
-
-        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
-            if (throwError) {
-                throw new IllegalArgumentException();
-            }
-
-            System.out.println("Hello " + Thread.currentThread().getName());
-            return "Hello";
-        }).handle((result, ex) -> {
-            if (ex != null) {
-                System.out.println(ex);
-                return "ERROR!";
-            }
-            return result;
+    public static void main(String[] args) {
+        ChickenContainer chickenContainer = App.class.getAnnotation(ChickenContainer.class);
+        Arrays.stream(chickenContainer.value()).forEach(c -> {
+            System.out.println(c.value());
         });
-
-        System.out.println(hello.get());
     }
 
 }
