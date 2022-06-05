@@ -1,4 +1,4 @@
-package me.whiteship.java8to11.JH.section4;
+package me.whiteship.java8to11.JH.section5;
 
 import java.time.Duration;
 

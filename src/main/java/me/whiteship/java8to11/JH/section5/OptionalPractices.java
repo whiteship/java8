@@ -1,7 +1,5 @@
 package me.whiteship.java8to11.JH.section5;
 
-import me.whiteship.java8to11.JH.section4.Progress;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
